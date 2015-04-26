@@ -22,15 +22,6 @@ public class GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-
-		GUI gui = new GUI();
-		gui.getComboBox().addItem("Foo");
-		gui.getComboBox().addItem("Bar");
-		gui.getComboBox().addItem("Derp");
-	}
-	
-
 	private JComboBox<String> comboBox;
 	private JEditorPane editorPane;
 	private JButton JSON_btn;

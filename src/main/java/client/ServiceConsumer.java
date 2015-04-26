@@ -53,6 +53,12 @@ public class ServiceConsumer {
         System.out.println(jsonLocation);*/
     }
 
+    /**
+     * Asks the server for a particular town's weather prediction
+     * @param i the code of the town
+     * @param args
+     * @return a String representation of the URL
+     */
     private static String descargarInfoTiempo(int i, String... args){
         try {
             Options options = new Options(args);
@@ -73,6 +79,11 @@ public class ServiceConsumer {
         }
     }
 
+    /**
+     * Asks the server for the HTML file content
+     * @param args
+     * @return a String representation of the content of the HTML file
+     */
     private static String generarHTML(String... args){
         try {
             Options options = new Options(args);
@@ -91,6 +102,11 @@ public class ServiceConsumer {
         }
     }
 
+    /**
+     * Asks the server for the JSON file content
+     * @param args
+     * @return a String representation of the content of the JSON file
+     */
     private static String generarJSON(String... args){
         try {
             Options options = new Options(args);
@@ -109,6 +125,11 @@ public class ServiceConsumer {
         }
     }
 
+    /**
+     * Shows the content in the editor Pane
+     * @param content text to show in editor
+     * @param editor editor GUI component
+     */
     private static void showInEditor(String content, JEditorPane editor){
         try {
 //            String content = FileUtils.readFileToString(new File(path));
@@ -118,6 +139,11 @@ public class ServiceConsumer {
         }
     }
 
+    /**
+     * Loads the Spinner with towns
+     * @param comboBox spinner GUI component
+     * @param codes an array to add the codes
+     */
     private static void loadSpinner(JComboBox comboBox, ArrayList<Integer> codes){
         File csvFile = new FileRetriever().getFile();
         try {
@@ -135,8 +161,15 @@ public class ServiceConsumer {
         }
     }
 
+    /**
+     * Auxiliary class for retrieving file
+     */
     private static class FileRetriever {
 
+        /**
+         * Retrieves the file with towns
+         * @return the retrieved file or null
+         */
         public File getFile() {
             File file = null;
             try {
