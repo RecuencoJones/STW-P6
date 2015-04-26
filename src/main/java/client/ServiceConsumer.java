@@ -3,7 +3,6 @@ package client;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.axis.utils.Options;
-import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import javax.xml.namespace.QName;
@@ -22,10 +21,6 @@ public class ServiceConsumer {
 
         ArrayList<Integer> codes = new ArrayList<>();
         loadSpinner(gui.getComboBox(), codes);
-//        for (int i = 50001; i <= 50297; i++){
-//            gui.getComboBox().addItem(i+"");
-//            codes.add(i);
-//        }
 
         // ///////////////////////////////////////
         // LISTENERS //
@@ -34,23 +29,21 @@ public class ServiceConsumer {
         gui.getJSON_btn().addActionListener(e -> {
             System.out.println("JSON button pressed");
             System.out.println("Selected item: " + codes.get(gui.getComboBox().getSelectedIndex()));
-//            gui.getEditorPane().setText("JSON " + codes.get(gui.getComboBox().getSelectedIndex()));
-            descargarInfoTiempo(codes.get(gui.getComboBox().getSelectedIndex()), args);
-            String jsonLocation = generarJSON("prediccion.xml");
-            System.out.println(jsonLocation);
+            String url = descargarInfoTiempo(codes.get(gui.getComboBox().getSelectedIndex()), args);
+            String content = generarJSON(url);
+//            System.out.println(jsonLocation);
             gui.getEditorPane().setContentType("text/plain");
-            showInEditor(jsonLocation, gui.getEditorPane());
+            showInEditor(content, gui.getEditorPane());
         });
 
         gui.getHTML_btn().addActionListener(e -> {
             System.out.println("HTML button pressed");
             System.out.println("Selected item: " + codes.get(gui.getComboBox().getSelectedIndex()));
-//            gui.getEditorPane().setText("HTML " + gui.getComboBox().getSelectedIndex());
             String url = descargarInfoTiempo(codes.get(gui.getComboBox().getSelectedIndex()), args);
-            String htmlLocation = generarHTML(url);
-            System.out.println(htmlLocation);
+            String content = generarHTML(url);
+//            System.out.println(htmlLocation);
             gui.getEditorPane().setContentType("text/html");
-            showInEditor(htmlLocation, gui.getEditorPane());
+            showInEditor(content, gui.getEditorPane());
         });
 
         /*String url = descargarInfoTiempo(50297, args);
@@ -116,9 +109,9 @@ public class ServiceConsumer {
         }
     }
 
-    private static void showInEditor(String path, JEditorPane editor){
+    private static void showInEditor(String content, JEditorPane editor){
         try {
-            String content = FileUtils.readFileToString(new File(path));
+//            String content = FileUtils.readFileToString(new File(path));
             editor.setText(content);
         }catch(Exception e){
             editor.setText("Error :(\n" + e);

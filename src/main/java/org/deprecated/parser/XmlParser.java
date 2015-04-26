@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by david on 23/03/2015.
  */
-public class Parser {
+public class XmlParser {
 
     public static void main(String[] args) throws IOException {
 

@@ -37,7 +37,7 @@ public class Generator {
         }
     }
 
-    public static String writeToFile(PrediccionSemana p, String filename) {
+    public static File writeToFile(PrediccionSemana p, String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String s = gson.toJson(p);
 
@@ -49,7 +49,7 @@ public class Generator {
             outputStream.write(s.getBytes());
             outputStream.close();
             System.out.println("JSON file written: "+filename);
-            return json.getAbsolutePath();
+            return json;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -8,11 +8,10 @@ import org.jdom.Document;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.deprecated.parser.JsonParser;
-import org.deprecated.parser.Parser;
+import org.deprecated.parser.XmlParser;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URL;
 
 /**
  * Created by David on 14/04/15.
@@ -26,7 +25,9 @@ public class Services {
      */
     public String descargarInfoTiempo(int i) throws AxisFault {
         try {
-            return "http://www.aemet.es/xml/municipios/localidad_"+i+".xml";
+            String xmlLocation = "http://www.aemet.es/xml/municipios/localidad_"+i+".xml";
+            XmlParser.parseXML(xmlLocation);
+            return xmlLocation;
         }catch (Exception e) {
             throw AxisFault.makeFault(e);
         }
@@ -34,12 +35,12 @@ public class Services {
 
     /**
      *
-     * @param XML nombre del fichero xml
+     * @param XML url del fichero xml
      * @throws AxisFault
      */
     public String generarHTML(String XML) throws AxisFault {
         try {
-            PrediccionSemana p = Parser.parseXML(XML);
+            PrediccionSemana p = XmlParser.parseXML(XML);
             Document doc = JsonParser.buildHTML(p);
 
             File f = new File("prediccion.html");
@@ -47,7 +48,7 @@ public class Services {
             FileOutputStream fos = new FileOutputStream(f);
             outputter.output(doc, fos);
             fos.close();
-            return f.getAbsolutePath();
+            return FileUtils.readFileToString(f);
         }catch (Exception e) {
             throw AxisFault.makeFault(e);
         }
@@ -55,13 +56,14 @@ public class Services {
 
     /**
      *
-     * @param XML nombre del fichero xml
+     * @param XML url del fichero xml
      * @throws AxisFault
      */
     public String generarJSON(String XML) throws AxisFault {
         try {
-            PrediccionSemana p = Parser.parse(new File(XML));
-            return Generator.writeToFile(p,"prediccion.json");
+            PrediccionSemana p = XmlParser.parseXML(XML);
+            File f = Generator.writeToFile(p,"prediccion.json");
+            return FileUtils.readFileToString(f);
         }catch (Exception e) {
             throw AxisFault.makeFault(e);
         }
