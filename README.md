@@ -10,9 +10,12 @@
 ## Building
 
 1. Use `gradle build` to compile java client and SOAP services
-2. Copy service classes from `build\classes\main`, package `org`
-3. Paste `org` at `%CATALINA_HOME%\webapps\axis\WEB-INF\classes`
-4. Reload application
+2. Copy service classes from `build/classes/main`, package `org`
+3. Paste `org` at `%CATALINA_HOME%/webapps/axis/WEB-INF/classes`
+4. Use `gradle war` to create the war artifact
+5. Copy libs from `build/libs/<app>.war`
+6. Paste them at `%CATALINA_HOME%/webapps/axis/WEB-INF/classes/libs`
+7. Reload Axis application
 
 ## Deploying
 
